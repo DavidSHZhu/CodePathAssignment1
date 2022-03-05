@@ -66,6 +66,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
+    
+    // prepping for when we are LEAVING this current screen
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // get the new view controller using segue.destination
+        // pass the selected object to the new view controller
+        
+        // in this case, sender is the cell that was tapped
+        // find the selected movie
+        
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        // pass the selected movie to the details view controller
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        detailsViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
      
 }
 
